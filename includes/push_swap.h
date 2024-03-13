@@ -13,7 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/includes/libft.h"
+# include "../libft/includes/libft.h"
 
 
 typedef struct stack_list
@@ -22,8 +22,16 @@ typedef struct stack_list
 	int	index;
 	struct stack_list *next;
 
-} *t_list;
+}t_list;
 
-int *	ft_insert_elements(char	*args[], int size);
-
+void	*create_stack_a(char	*args[], int c_args);
+void	*create_stack_b();
+void	*swap_stack(t_list *stack);
+// void	swap_both_stack(t_list *stack_a, t_list *stack_b);
+void	*push_stack(t_list *from, t_list *to);
+// void	*rotate_stack(t_list *stack);
+// void	*rotate_both_stack(t_list *stack_a, t_list *stack_b);
+// void	*reverse_rotate_stack(t_list *stack);
+// void	*reverse_rotate_both_stack(t_list *stack_a, t_list *stack_b);
+// void	print_stack(t_list *stack);
 # endif

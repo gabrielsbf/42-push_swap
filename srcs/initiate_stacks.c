@@ -9,25 +9,40 @@
 /*   Updated: 2024/02/29 16:16:47 by gabrfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
-int *	ft_insert_elements(char	*args[], int c_args)
+void	*create_stack_a(char	*args[], int c_args)
 {
-	int	*els;
+	t_list *iter_stack;
+	t_list *return_stack;
 	int	i;
 	int	index;
 
 	index = 0;
 	i = 1;
-	els = (int *)malloc((c_args - 1) * sizeof(int));
-	if (!els)
-		return 0;
+	iter_stack = (t_list *)malloc(sizeof(t_list));
+	if (!iter_stack)
+		return NULL;
+	return_stack = iter_stack;
 	while(i < c_args)
 	{
-		els[index] = ft_atoi(args[i]);
-		ft_printf("els em index é :%d e atoi do arg é :%d\n",els[index], ft_atoi(args[i]));
+		iter_stack->value = ft_atoi(args[i]);
+		iter_stack->index = index;
 		index++;
 		i++;
+		if(i == c_args)
+			break ;
+		iter_stack->next = (t_list *)malloc(sizeof(t_list));
+		iter_stack = iter_stack->next;
 	}
-	return (els);
+	iter_stack->next = NULL;
+	return return_stack;
+}
+
+void	*create_stack_b()
+{
+	t_list	*return_stack;
+	return_stack = (t_list *)malloc(sizeof(t_list));
+	return_stack->next = NULL;
+	return (void *)(return_stack);
 }

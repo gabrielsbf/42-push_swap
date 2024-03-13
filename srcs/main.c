@@ -10,24 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "libft/includes/libft.h"
-#include <stdio.h>
+#include "../includes/push_swap.h"
+
+void	print_stack(t_list *stack)
+{
+	t_list *temp_stack;
+	int	index;
+
+	temp_stack = stack;
+	index = 0;
+	while(temp_stack->next)
+	{
+		ft_printf("valor da temp_stack a no index: %d é %d\n", index, temp_stack->value);
+		temp_stack = temp_stack->next;
+		index++;
+	}
+	if(temp_stack->value)
+		ft_printf("valor da temp_stack a no index: %d é %d\n", index, temp_stack->value);
+}
+
 int	main(int argc, char *argv[])
 {
-	t_info		info;
-	t_point		a;
+	t_list *stack_a;
+	t_list *stack_b;
 	if (argc == 1)
 	{
-		ft_printf("Error");
+		ft_printf("\nError\n");
 		return (0);
 	}
-	a = &info;
-	a->stack = ft_insert_elements(argv, argc);
+	stack_a = create_stack_a(argv, argc);
+	stack_b = create_stack_b();
+	print_stack(stack_a);
+	print_stack(stack_b);
+	ft_printf("pós_swap_a\n");
+	stack_a = swap_stack(stack_a);
 
-	a->index = 0;
-	a->size = argc - 1;
-	ft_printf("%d", a->stack[0]);
+	print_stack(stack_a);
 	return (0);
-
 }

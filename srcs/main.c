@@ -14,6 +14,7 @@
 
 void	print_stack(t_list *stack)
 {
+	ft_printf("printando valores\n--------------\n\n");
 	t_list *temp_stack;
 	int	index;
 
@@ -32,19 +33,20 @@ void	print_stack(t_list *stack)
 int	main(int argc, char *argv[])
 {
 	t_list *stack_a;
-	t_list *stack_b;
+	// t_list *stack_b;
 	if (argc == 1)
 	{
-		ft_printf("\nError\n");
+		ft_printf("Error\n");
 		return (0);
 	}
-	stack_a = create_stack_a(argv, argc);
-	stack_b = create_stack_b();
-	print_stack(stack_a);
-	print_stack(stack_b);
-	ft_printf("pós_swap_a\n");
-	stack_a = swap_stack(stack_a);
+	create_stack_a(&stack_a, argv, argc);
+	// create_stack_b(&stack_b);
 
+	reverse_rotate_stack(&stack_a);
+	ft_printf("\nstack a\n");
 	print_stack(stack_a);
+	// ft_printf("\nstack b\n");
+	// print_stack(stack_b);
+
 	return (0);
 }

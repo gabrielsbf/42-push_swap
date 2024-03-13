@@ -16,13 +16,13 @@
 # include "libft/includes/libft.h"
 
 
-typedef struct stack_info
+typedef struct stack_list
 {
-	int *stack;
-	int size;
+	int	value;
 	int	index;
+	struct stack_list *next;
 
-}t_info, *t_point;
+} *t_list;
 
 int *	ft_insert_elements(char	*args[], int size);
 

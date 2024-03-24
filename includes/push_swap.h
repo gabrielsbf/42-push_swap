@@ -23,7 +23,8 @@ typedef struct stack_list
 	struct stack_list *next;
 
 }t_list;
-
+int		validate_args(char *argv[], int argc);
+int		separate_elements(char *argv[], int argc);
 void	create_stack_a(t_list **stack, char	*args[], int c_args);
 void	create_stack_b(t_list **stack);
 void	swap_stack(t_list **stack);

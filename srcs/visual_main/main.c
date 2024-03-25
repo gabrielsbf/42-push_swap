@@ -10,7 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../../includes/push_swap.h"
+
+void	print_stack(t_list *stack)
+{
+	t_list *temp_stack;
+	int	index;
+
+	temp_stack = stack;
+	index = 0;
+	while(temp_stack->next)
+	{
+		ft_printf("index %d valor: %d\n", index, temp_stack->value);
+		temp_stack = temp_stack->next;
+		index++;
+	}
+	if(temp_stack->value)
+		ft_printf("index %d valor: %d\n", index, temp_stack->value);
+}
 
 int	*malloc_from_args(char *argv[], int *r_count)
 {
@@ -131,9 +148,16 @@ int	main(int argc, char *argv[])
 	values = format_args(argv,&r_count);
 	create_stack_a(&stack_a, values, r_count);
 	create_stack_b(&stack_b);
+	ft_printf("\nstack antes ordenação\n-----------------\n");
+	print_stack(stack_a);
+	ft_printf("\nINICIANDO OPERAÇÕES\n-------------------\n");
 	if (r_count <= 3)
 		op_three_vls(&stack_a, r_count);
-	else if (r_count > 3 && r_count <= 5)
+	else if (r_count > 3 && r_count <= 10)
 		op_six_vls(&stack_a, &stack_b, r_count);
+	ft_printf("\nstack após ordenação\n-----------------\n");
+	print_stack(stack_a);
+
+
 	return (0);
 }

@@ -15,7 +15,6 @@
 
 # include "../libft/includes/libft.h"
 
-
 typedef struct stack_list
 {
 	int	value;
@@ -23,16 +22,20 @@ typedef struct stack_list
 	struct stack_list *next;
 
 }t_list;
+
+int		*format_args(char *argv[], int *r_count);
+int		*malloc_from_args(char *argv[], int *r_count);
 int		validate_args(char *argv[], int argc);
-int		separate_elements(char *argv[], int argc);
-void	create_stack_a(t_list **stack, char	*args[], int c_args);
+int		get_next_n(char *str, int i);
+void	create_stack_a(t_list **stack, int	*s_values, int c_args);
 void	create_stack_b(t_list **stack);
-void	swap_stack(t_list **stack);
+void	swap_stack(t_list **stack, char stack_name);
 void	swap_both_stack(t_list **stack_a, t_list **stack_b);
-void	push_stack(t_list **from, t_list **to);
-void	rotate_stack(t_list **stack);
+void	push_stack(t_list **from, t_list **to, char stack_from);
+void	rotate_stack(t_list **stack, char stack_name);
 void	rotate_both_stack(t_list **stack_a, t_list **stack_b);
-void	reverse_rotate_stack(t_list **stack);
+void	reverse_rotate_stack(t_list **stack, char stack_name);
 void	reverse_rotate_both_stack(t_list **stack_a, t_list **stack_b);
 void	print_stack(t_list *stack);
+void	op_three_vls(t_list **stack_a, int s_count);
 # endif

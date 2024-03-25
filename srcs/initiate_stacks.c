@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	create_stack_a(t_list **stack, char	*args[], int c_args)
+void	create_stack_a(t_list **stack, int	*s_values, int c_args)
 {
 	t_list *iter_stack;
 	t_list *return_stack;
@@ -19,14 +19,14 @@ void	create_stack_a(t_list **stack, char	*args[], int c_args)
 	int	index;
 
 	index = 0;
-	i = 1;
+	i = 0;
 	iter_stack = (t_list *)malloc(sizeof(t_list));
 	if (!iter_stack)
 		return ;
 	return_stack = iter_stack;
 	while(i < c_args)
 	{
-		iter_stack->value = ft_atoi(args[i]);
+		iter_stack->value = s_values[i];
 		iter_stack->index = index;
 		index++;
 		i++;

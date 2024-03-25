@@ -14,7 +14,6 @@
 
 void	print_stack(t_list *stack)
 {
-	ft_printf("printando valores\n--------------\n\n");
 	t_list *temp_stack;
 	int	index;
 
@@ -22,35 +21,91 @@ void	print_stack(t_list *stack)
 	index = 0;
 	while(temp_stack->next)
 	{
-		ft_printf("valor da temp_stack a no index: %d é %d\n", index, temp_stack->value);
+		ft_printf("valor %d index: %d\n", index, temp_stack->value);
 		temp_stack = temp_stack->next;
 		index++;
 	}
 	if(temp_stack->value)
-		ft_printf("valor da temp_stack a no index: %d é %d\n", index, temp_stack->value);
+		ft_printf("valor %d index: %d\n", index, temp_stack->value);
 }
 
-int	separate_elements(char *argv[], int argc)
+int	*malloc_from_args(char *argv[], int *r_count)
 {
-	int	i;
+	size_t i;
 	int	nv;
+	int	verificator;
+	int	*values;
 
-	nv = 1;
+	verificator = *r_count;
 	i = 0;
-	while(nv < argc)
+	nv = 1;
+	while(nv <= verificator)
 	{
-		while (argv[nv][i]!= '\0')
+		while(i < ft_strlen(argv[nv]))
 		{
-			if(ft_strchr("0123456789",argv[nv][i]) == 0)
-			{
-				if((argv[nv][i]>= 7 && argv[nv][i]<= 13) || argv[nv][i] == 32)
-					return (i);
-			}
-			i++;
+			i = get_next_n(argv[nv], i);
+			*r_count = *r_count + 1;
 		}
+		*r_count = *r_count - 1;
 		nv++;
 		i = 0;
 	}
+	values = (int *)malloc((*r_count) * sizeof(int));
+	if (!values)
+		return (NULL);
+	return (values);
+}
+
+int	*format_args(char *argv[], int *r_count)
+{
+	int	start_i;
+	int	arg_number;
+	int	nv;
+	int	*stack_values;
+
+	arg_number = *r_count;
+	stack_values = malloc_from_args(argv, r_count);
+	nv = 1;
+	start_i = 0;
+	while(nv <= arg_number)
+	{
+		while (argv[nv][start_i]!= '\0')
+		{
+			*stack_values = ft_atoi(ft_substr(argv[nv], start_i, get_next_n(argv[nv], start_i)));
+			start_i = get_next_n(argv[nv], start_i);
+			stack_values++;
+		}
+		nv++;
+		start_i = 0;
+	}
+	stack_values = stack_values - *r_count;
+	return (stack_values);
+}
+
+int	has_space(char	*str, int i)
+{
+	if(((str[i]>= 7 && str[i]<= 13)|| str[i] == 32))
+		return (1);
+	else
+		return (0);
+}
+
+int	get_next_n(char *str, int i)
+{
+	while(str[i] != '\0')
+	{
+		if (ft_strchr("0123456789", str[i]) == 0)
+		{
+			while(has_space(str, i) && (str[i] != '\0') )
+				i++;
+			if (str[i] != '\0' && !(has_space(str, i)))
+				return (i);
+		}
+		if(str[i] == '\0')
+			break;
+		i++;
+	}
+	return (i);
 }
 
 int	validate_args(char *argv[], int argc)
@@ -60,14 +115,14 @@ int	validate_args(char *argv[], int argc)
 
 	nv = 1;
 	i = 0;
-	while(nv < argc)
+	while (nv < argc)
 	{
 		while (argv[nv][i]!= '\0')
 		{
-			if(ft_strchr("0123456789",argv[nv][i]) == 0)
+			if (ft_strchr("0123456789",argv[nv][i]) == 0)
 			{
-				if(!(argv[nv][i]>= 7 && argv[nv][i]<= 13) && argv[nv][i] != 32)
-					return (0);;
+				if (!(has_space(argv[nv], i)) && (argv[nv][i] != '\0'))
+					return (0);
 			}
 			i++;
 		}
@@ -79,20 +134,29 @@ int	validate_args(char *argv[], int argc)
 
 int	main(int argc, char *argv[])
 {
-	t_list *stack_a;
+	int	r_count;
+	int	*values;
+
+	r_count = argc - 1;
+	t_list	*stack_a;
 	// t_list *stack_b;
 	if (argc == 1 || validate_args(argv, argc) == 0)
 	{
 		ft_printf("Error\n");
 		return (0);
 	}
-	ft_printf("%d\n",separate_elements(argv, argc));
-	// create_stack_a(&stack_a, argv, argc);
-	// // create_stack_b(&stack_b);
+	values = format_args(argv,&r_count);
 
-	// reverse_rotate_stack(&stack_a);
-	// ft_printf("\nstack a\n");
-	// print_stack(stack_a);
+	create_stack_a(&stack_a, values, r_count);
+	ft_printf("\nstack antes ordenação\n-----------------\n");
+	print_stack(stack_a);
+	ft_printf("\nINICIANDO OPERAÇÕES\n-------------------\n");
+	if (r_count <= 3)
+	{
+		op_three_vls(&stack_a, r_count);
+	}
+	ft_printf("\nstack após ordenação\n-----------------\n");
+	print_stack(stack_a);
 
 
 	return (0);

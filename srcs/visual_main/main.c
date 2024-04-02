@@ -21,12 +21,12 @@ void	print_stack(t_list *stack)
 	index = 0;
 	while(temp_stack->next)
 	{
-		ft_printf("index %d valor: %d\n", index, temp_stack->value);
+		ft_printf("index %d valor: %d na posição geral: %d\n", index, temp_stack->value, temp_stack->index);
 		temp_stack = temp_stack->next;
 		index++;
 	}
 	if(temp_stack->value)
-		ft_printf("index %d valor: %d\n", index, temp_stack->value);
+		ft_printf("index %d valor: %d na posição geral: %d\n", index, temp_stack->value, temp_stack->index);
 }
 
 int	*malloc_from_args(char *argv[], int *r_count)
@@ -94,7 +94,7 @@ int	get_next_n(char *str, int i)
 {
 	while(str[i] != '\0')
 	{
-		if (ft_strchr("0123456789", str[i]) == 0)
+		if (ft_strchr("-0123456789", str[i]) == 0)
 		{
 			while(has_space(str, i) && (str[i] != '\0') )
 				i++;
@@ -119,7 +119,7 @@ int	validate_args(char *argv[], int argc)
 	{
 		while (argv[nv][i]!= '\0')
 		{
-			if (ft_strchr("0123456789",argv[nv][i]) == 0)
+			if (ft_strchr("-0123456789",argv[nv][i]) == 0)
 			{
 				if (!(has_space(argv[nv], i)) && (argv[nv][i] != '\0'))
 					return (0);
@@ -153,11 +153,17 @@ int	main(int argc, char *argv[])
 	ft_printf("\nINICIANDO OPERAÇÕES\n-------------------\n");
 	if (r_count <= 3)
 		op_three_vls(&stack_a, r_count);
-	else if (r_count > 3 && r_count <= 10)
-		op_six_vls(&stack_a, &stack_b, r_count);
+	else if (r_count > 3 && r_count <= 5)
+		op_fv_vls(&stack_a, &stack_b);
+	else
+		more_than_five(&stack_a, &stack_b, r_count);
 	ft_printf("\nstack após ordenação\n-----------------\n");
 	print_stack(stack_a);
-
+	ft_printf("Stack ordered:%d\n",is_stack_ordered(&stack_a));
+	if (is_stack_ordered(&stack_a))
+		ft_printf("stack_ordered_with_success\n");
+	else
+		ft_printf("couldn't order stack\n");
 
 	return (0);
 }

@@ -21,58 +21,65 @@ void	op_three_vls(t_list **stack_a, int s_count)
 	}
 }
 
-void	op_six_vls(t_list **stack_a, t_list **stack_b, int s_count)
+void	op_fv_vls(t_list **stack_a, t_list **stack_b)
 {
-	int		i;
-	t_list	*end_stack_a;
-
-	end_stack_a = (*stack_a);
-	i = 1;
-	if (verify_stack_order(stack_a))
+	if (is_stack_ordered(stack_a))
 		return ;
-	// ft_printf("not ordered on verify\n");
-	while(i < s_count)
+	while (elem_in_stack(stack_a) > 3)
 	{
-		// ft_printf("i is : %d\n", i);
-		end_stack_a = end_stack_a->next;
-		i++;
-		// ft_printf("end_stack_a_value : %d\n", end_stack_a->value);
-	}
-	while (i > 3)
-	{
-		// ft_printf("entered_here\ni value is: %d\n", i);
-		if ((*stack_a)->value > (*stack_a)->next->value)
-			swap_stack(stack_a, 'a');
-		if ((*stack_a)->value > end_stack_a->value)
+		while (elem_in_stack(stack_a) > 3 && ((* stack_a)->index == 1 || (* stack_a)->index == 0))
+			push_stack(stack_a, stack_b, 'a');
+		if (elem_in_stack(stack_a) > 3)
 			reverse_rotate_stack(stack_a, 'a');
-		push_stack(stack_a, stack_b, 'a');
-		i--;
 	}
-	// ft_printf("out of while\ni value is: %d\n", i);
-	// ft_printf("value of s_count - i is: %d\n", s_count - i);
-	op_three_vls(stack_a, i);
-	while (s_count - i != 0)
+	if ((*stack_b)->index == 0 && (*stack_b)->next->index == 1)
+		swap_stack(stack_b, 'b');
+	op_three_vls(stack_a, elem_in_stack(stack_a));
+	while (elem_in_stack(stack_b) != 0 && (* stack_b)->index != -1)
+		push_stack(stack_b, stack_a, 'b');
+}
+
+void	more_than_five(t_list **stack_a, t_list **stack_b, int s_count)
+{
+	int	iter;
+	int	begin;
+
+	begin = 0;
+	iter = binary_limit(s_count);
+	while (iter > 0)
+	{
+		order_by_radix(stack_a, stack_b, begin, s_count);
+		iter--;
+		begin++;
+	}
+	while (elem_in_stack(stack_b) > 0)
 	{
 		push_stack(stack_b, stack_a, 'b');
-		i++;
 	}
-	if (!verify_stack_order(stack_a))
-		op_six_vls(stack_a, stack_b, s_count);
 }
 
-int	verify_stack_order(t_list **stack_a)
+void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
 {
-	// ft_printf("value of stack a is \n");
-	// print_stack((*stack_a));
-	t_list *stack_temp;
+	int	count_b;
+	int	count_a;
 
-	stack_temp = (*stack_a);
-	while(stack_temp->next != NULL)
+	count_b = elem_in_stack(stack_b);
+	while (count_b > 0 && (*stack_b)->next != NULL)
 	{
-		if (stack_temp->value <= stack_temp->next->value)
-			stack_temp = stack_temp->next;
+		if (((* stack_b)->index >> ind & 1) == 1)
+			push_stack(stack_b, stack_a, 'b');
 		else
-			return (0);
+			rotate_stack(stack_b, 'b');
+		count_b--;
 	}
-	return (1);
+	count_a = elem_in_stack(stack_a);
+	while (count_a >= 0 &&(*stack_a)->next != NULL)
+	{
+		if (((* stack_a)->index >> ind & 1) == 0)
+			push_stack(stack_a, stack_b, 'a');
+		else
+			rotate_stack(stack_a, 'a');
+		count_a--;
+	}
 }
+

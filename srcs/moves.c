@@ -6,6 +6,8 @@ void	swap_stack(t_list **stack, char stack_name)
 	t_list	*head;
 	t_list	*first;
 
+	if (elem_in_stack(stack) <= 1)
+		return ;
 	first = *stack;
 	head = 	(*stack)->next;
 	first_to = (*stack)->next->next;
@@ -18,6 +20,8 @@ void	swap_stack(t_list **stack, char stack_name)
 
 void	swap_both_stack(t_list **a, t_list **b)
 {
+	if (elem_in_stack(a) <= 0 || elem_in_stack(b) <= 0)
+		return ;
 	swap_stack(a, 0);
 	swap_stack(b, 0);
 	ft_printf("ss\n");
@@ -26,7 +30,8 @@ void	swap_both_stack(t_list **a, t_list **b)
 void	push_stack(t_list **from, t_list **to, char stack_from)
 {
 	t_list	*head;
-
+	if (elem_in_stack(from) <= 0)
+		return ;
 	head = (*from)->next;
 	(*from)->next = (*to);
 	(*to) = (*from);
@@ -39,6 +44,8 @@ void	rotate_stack(t_list **stack, char stack_name)
 	t_list	*head;
 	t_list	*first_stack;
 
+	// if (elem_in_stack(stack) <= 1)
+	// 	return ;
 	head = (*stack)->next;
 	first_stack = (*stack);
 	while ((*stack)->next != NULL)

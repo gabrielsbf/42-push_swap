@@ -12,6 +12,23 @@
 
 #include "../../includes/push_swap.h"
 
+void	print_stack(t_list **stack)
+{
+	t_list *temp_stack;
+	int	index;
+
+	temp_stack = (* stack);
+	index = 0;
+	while(temp_stack->next)
+	{
+		ft_printf("index %d valor: %d na posição geral: %d\n", index, temp_stack->value, temp_stack->index);
+		temp_stack = temp_stack->next;
+		index++;
+	}
+	if(temp_stack->value)
+		ft_printf("index %d valor: %d na posição geral: %d\n", index, temp_stack->value, temp_stack->index);
+}
+
 int	*malloc_from_args(char *argv[], int *r_count)
 {
 	size_t i;

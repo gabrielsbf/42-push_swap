@@ -2,6 +2,8 @@
 
 void	op_three_vls(t_list **stack_a, int s_count)
 {
+	if (is_stack_ordered(stack_a))
+		return ;
 	if (s_count == 3)
 	{
 		if((*stack_a)->value > (*stack_a)->next->value)
@@ -17,7 +19,7 @@ void	op_three_vls(t_list **stack_a, int s_count)
 	if(s_count == 2)
 	{
 		if((*stack_a)->value > (*stack_a)->next->value)
-		swap_stack(stack_a, 'a');
+			swap_stack(stack_a, 'a');
 	}
 }
 
@@ -28,7 +30,9 @@ void	op_fv_vls(t_list **stack_a, t_list **stack_b)
 	while (elem_in_stack(stack_a) > 3)
 	{
 		while (elem_in_stack(stack_a) > 3 && ((* stack_a)->index == 1 || (* stack_a)->index == 0))
+		{
 			push_stack(stack_a, stack_b, 'a');
+		}
 		if (elem_in_stack(stack_a) > 3)
 			reverse_rotate_stack(stack_a, 'a');
 	}
@@ -37,6 +41,7 @@ void	op_fv_vls(t_list **stack_a, t_list **stack_b)
 	op_three_vls(stack_a, elem_in_stack(stack_a));
 	while (elem_in_stack(stack_b) != 0 && (* stack_b)->index != -1)
 		push_stack(stack_b, stack_a, 'b');
+	op_three_vls(stack_a, 2);
 }
 
 void	more_than_five(t_list **stack_a, t_list **stack_b, int s_count)
@@ -66,6 +71,11 @@ void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
 	count_b = elem_in_stack(stack_b);
 	while (count_b > 0 && (*stack_b)->next != NULL)
 	{
+		ft_printf("\nEntered in b iterate\n");
+		ft_printf("\nSTACK A\n");
+		print_stack((stack_a));
+		ft_printf("\nSTACK B\n");
+		print_stack((stack_b));
 		if (((* stack_b)->index >> ind & 1) == 1)
 			push_stack(stack_b, stack_a, 'b');
 		else
@@ -75,6 +85,11 @@ void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
 	count_a = elem_in_stack(stack_a);
 	while (count_a >= 0 &&(*stack_a)->next != NULL)
 	{
+		ft_printf("\nEntered in a iterate\n");
+		ft_printf("\nSTACK A\n");
+		print_stack((stack_a));
+		ft_printf("\nSTACK B\n");
+		print_stack((stack_b));
 		if (((* stack_a)->index >> ind & 1) == 0)
 			push_stack(stack_a, stack_b, 'a');
 		else

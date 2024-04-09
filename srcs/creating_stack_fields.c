@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 
-void	get_stack_indexes(t_list **stack)
+void	set_stack_indexes(t_list **stack)
 {
 	t_list	*stack_iter;
 

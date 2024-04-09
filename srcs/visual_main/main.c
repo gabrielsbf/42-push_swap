@@ -12,14 +12,14 @@
 
 #include "../../includes/push_swap.h"
 
-void	print_stack(t_list *stack)
+void	print_stack(t_list **stack)
 {
 	t_list *temp_stack;
 	int	index;
 
-	temp_stack = stack;
+	temp_stack = (* stack);
 	index = 0;
-	while(temp_stack->next)
+	while(temp_stack->next != NULL && temp_stack)
 	{
 		ft_printf("index %d valor: %d na posição geral: %d\n", index, temp_stack->value, temp_stack->index);
 		temp_stack = temp_stack->next;
@@ -145,11 +145,12 @@ int	main(int argc, char *argv[])
 		ft_printf("Error\n");
 		return (0);
 	}
-	values = format_args(argv,&r_count);
+	values = format_args(argv, &r_count);
+	ft_printf("Real count is: %d\n", r_count);
 	create_stack_a(&stack_a, values, r_count);
 	create_stack_b(&stack_b);
 	ft_printf("\nstack antes ordenação\n-----------------\n");
-	print_stack(stack_a);
+	print_stack(&stack_a);
 	ft_printf("\nINICIANDO OPERAÇÕES\n-------------------\n");
 	if (r_count <= 3)
 		op_three_vls(&stack_a, r_count);
@@ -158,7 +159,7 @@ int	main(int argc, char *argv[])
 	else
 		more_than_five(&stack_a, &stack_b, r_count);
 	ft_printf("\nstack após ordenação\n-----------------\n");
-	print_stack(stack_a);
+	print_stack(&stack_a);
 	ft_printf("Stack ordered:%d\n",is_stack_ordered(&stack_a));
 	if (is_stack_ordered(&stack_a))
 		ft_printf("stack_ordered_with_success\n");

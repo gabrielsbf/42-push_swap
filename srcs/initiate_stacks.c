@@ -35,7 +35,7 @@ void	create_stack_a(t_list **stack, int	*s_values, int c_args)
 		iter_stack = iter_stack->next;
 	}
 	iter_stack->next = NULL;
-	get_stack_indexes(&return_stack);
+	set_stack_indexes(&return_stack);
 	(*stack) = return_stack;
 }
 

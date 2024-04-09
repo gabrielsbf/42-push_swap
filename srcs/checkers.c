@@ -24,9 +24,8 @@ int	elem_in_stack(t_list **stack)
 	i = 1;
 	while(tmp_stack->next != NULL)
 	{
-		if (tmp_stack->index != -1)
-			i++;
 		tmp_stack = tmp_stack->next;
+		i++;
 	}
 	return (i);
 }

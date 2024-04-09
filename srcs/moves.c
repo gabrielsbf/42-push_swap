@@ -30,10 +30,17 @@ void	swap_both_stack(t_list **a, t_list **b)
 void	push_stack(t_list **from, t_list **to, char stack_from)
 {
 	t_list	*head;
-	if (elem_in_stack(from) <= 0)
-		return ;
+	// ft_printf("Entrei no push_stack\nSTACK FROM é:%c\n", stack_from);
+	// print_stack(from);
+	// ft_printf("A OUTRA STACK É\n");
+	// print_stack(to);
 	head = (*from)->next;
-	(*from)->next = (*to);
+	if ((*from)->index == -1)
+		return ;
+	if ((*to)->index == -1)
+		(*from)->next = NULL;
+	else
+		(*from)->next = (*to);
 	(*to) = (*from);
 	(*from) = head;
 	ft_printf("p%c\n", stack_from);
@@ -44,8 +51,8 @@ void	rotate_stack(t_list **stack, char stack_name)
 	t_list	*head;
 	t_list	*first_stack;
 
-	// if (elem_in_stack(stack) <= 1)
-	// 	return ;
+	if (elem_in_stack(stack) <= 1)
+		return ;
 	head = (*stack)->next;
 	first_stack = (*stack);
 	while ((*stack)->next != NULL)

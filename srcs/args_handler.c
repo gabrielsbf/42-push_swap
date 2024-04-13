@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   args_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabrfern <gabrfern@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 16:16:50 by gabrfern          #+#    #+#             */
-/*   Updated: 2024/04/13 14:35:21 by gabrfern         ###   ########.fr       */
+/*   Created: 2024/04/13 13:37:14 by gabrfern          #+#    #+#             */
+/*   Updated: 2024/04/13 14:34:29 by gabrfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
+#include "../includes/push_swap.h"
 
-void	destroy_stacks(t_list **stack_a, t_list **stack_b)
+int	validate_args(char *argv[], int argc)
 {
-	t_list	*temp_stack_a;
+	int	i;
+	int	nv;
 
-	while ((*stack_a)->next != NULL)
+	nv = 1;
+	i = 0;
+	while (nv < argc)
 	{
-		temp_stack_a = (*stack_a);
-		*stack_a = (*stack_a)->next;
-		free(temp_stack_a);
+		while (argv[nv][i] != '\0')
+		{
+			if (ft_strchr("+-", argv[nv][i]) != 0
+				&& !ft_isdigit(argv[nv][i + 1]))
+				return (0);
+			if (ft_strchr("+-0123456789", argv[nv][i]) == 0)
+			{
+				if (!(ft_has_space(argv[nv], i)) && (argv[nv][i] != '\0'))
+					return (0);
+			}
+			i++;
+		}
+		nv++;
+		i = 0;
 	}
-	free((*stack_a));
-	free((*stack_b));
+	return (1);
 }
 
 int	*malloc_from_args(char *argv[], int *r_count)
@@ -96,30 +109,4 @@ int	get_next_n(char *str, int i)
 		i++;
 	}
 	return (i);
-}
-
-int	main(int argc, char *argv[])
-{
-	int		r_count;
-	int		*values;
-	t_list	*stack_a;
-	t_list	*stack_b;
-
-	r_count = argc - 1;
-	if (argc == 1 || validate_args(argv, argc) == 0)
-	{
-		ft_printf("Error\n");
-		return (0);
-	}
-	values = format_args(argv, &r_count);
-	create_stack_a(&stack_a, values, r_count);
-	create_stack_b(&stack_b);
-	if (r_count <= 3)
-		op_three_vls(&stack_a, r_count);
-	else if (r_count > 3 && r_count <= 5)
-		op_fv_vls(&stack_a, &stack_b);
-	else
-		more_than_five(&stack_a, &stack_b, r_count);
-	destroy_stacks(&stack_a, &stack_b);
-	return (0);
 }

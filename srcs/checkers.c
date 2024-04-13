@@ -1,28 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checkers.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabrfern <gabrfern@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/13 13:36:43 by gabrfern          #+#    #+#             */
+/*   Updated: 2024/04/13 14:34:47 by gabrfern         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-int		binary_limit(int r_count)
+int	binary_limit(int r_count)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (r_count)
 	{
-		r_count = r_count>>1;
+		r_count = r_count >> 1;
 		i++;
 	}
-	return i;
+	return (i);
 }
 
 int	elem_in_stack(t_list **stack)
 {
-	int	i;
-	t_list * tmp_stack;
+	int		i;
+	t_list	*tmp_stack;
 
-	if (!(* stack) || (* stack)->index == -1)
+	if (!(*stack) || (*stack)->index == -1)
 		return (0);
-	tmp_stack = (* stack);
+	tmp_stack = (*stack);
 	i = 1;
-	while(tmp_stack->next != NULL)
+	while (tmp_stack->next != NULL)
 	{
 		tmp_stack = tmp_stack->next;
 		i++;
@@ -32,7 +44,7 @@ int	elem_in_stack(t_list **stack)
 
 int	is_stack_ordered(t_list **stack_a)
 {
-	t_list *stack_temp;
+	t_list	*stack_temp;
 
 	stack_temp = (*stack_a);
 	while (stack_temp->next != NULL)
@@ -49,4 +61,3 @@ int	is_stack_ordered(t_list **stack_a)
 	}
 	return (1);
 }
-

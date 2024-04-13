@@ -18,7 +18,7 @@ int	elem_in_stack(t_list **stack)
 	int	i;
 	t_list * tmp_stack;
 
-	if (!(* stack))
+	if (!(* stack) || (* stack)->index == -1)
 		return (0);
 	tmp_stack = (* stack);
 	i = 1;

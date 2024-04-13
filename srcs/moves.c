@@ -30,10 +30,6 @@ void	swap_both_stack(t_list **a, t_list **b)
 void	push_stack(t_list **from, t_list **to, char stack_from)
 {
 	t_list	*head;
-	// ft_printf("Entrei no push_stack\nSTACK FROM é:%c\n", stack_from);
-	// print_stack(from);
-	// ft_printf("A OUTRA STACK É\n");
-	// print_stack(to);
 	head = (*from)->next;
 	if ((*from)->index == -1)
 		return ;

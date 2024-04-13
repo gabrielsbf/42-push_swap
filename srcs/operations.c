@@ -69,13 +69,16 @@ void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
 	int	count_a;
 
 	count_b = elem_in_stack(stack_b);
+	// ft_printf("STACKS\n----------------------------\n");
+	// ft_printf("STACK_A\n");
+	// print_stack(stack_a);
+	// ft_printf("------------------------------------\n");
+	// ft_printf("STACK_B\n");
+	// print_stack(stack_b);
+	// ft_printf("------------------------------------\n");
 	while (count_b > 0 && (*stack_b)->next != NULL)
 	{
-		ft_printf("\nEntered in b iterate\n");
-		ft_printf("\nSTACK A\n");
-		print_stack((stack_a));
-		ft_printf("\nSTACK B\n");
-		print_stack((stack_b));
+		// ft_printf("count_stack_b el : %d\n", count_b);
 		if (((* stack_b)->index >> ind & 1) == 1)
 			push_stack(stack_b, stack_a, 'b');
 		else
@@ -83,13 +86,10 @@ void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
 		count_b--;
 	}
 	count_a = elem_in_stack(stack_a);
-	while (count_a >= 0 &&(*stack_a)->next != NULL)
+
+	while (count_a > 0 &&(*stack_a)->next != NULL)
 	{
-		ft_printf("\nEntered in a iterate\n");
-		ft_printf("\nSTACK A\n");
-		print_stack((stack_a));
-		ft_printf("\nSTACK B\n");
-		print_stack((stack_b));
+		// ft_printf("count_stack_a el : %d\n", count_a);
 		if (((* stack_a)->index >> ind & 1) == 0)
 			push_stack(stack_a, stack_b, 'a');
 		else

@@ -149,6 +149,7 @@ int	main(int argc, char *argv[])
 	ft_printf("Real count is: %d\n", r_count);
 	create_stack_a(&stack_a, values, r_count);
 	create_stack_b(&stack_b);
+	ft_printf("Elem in stack >> %d\n", elem_in_stack(&stack_b));
 	ft_printf("\nstack antes ordenação\n-----------------\n");
 	print_stack(&stack_a);
 	ft_printf("\nINICIANDO OPERAÇÕES\n-------------------\n");

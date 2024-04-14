@@ -26,10 +26,13 @@ typedef struct stack_list
 int		*format_args(char *argv[], int *r_count);
 int		*malloc_from_args(char *argv[], int *r_count);
 int		validate_args(char *argv[], int argc);
+int		respect_limits(char *argv[], int argc, int *values, int r_count);
+int		allowed_cond(char *argv[], int argc, int *values, int r_count);
 int		next_n(char *str, int i);
+int		has_zero(int *values, int r_count);
 int		is_stack_ordered(t_list **stack_a);
 int		elem_in_stack(t_list **stack);
-int		has_repeated_v(int *values,int r_count);
+int		has_rept_v(int *values, int r_count);
 void	push_swap(t_list **st_a, t_list **st_b, int count, int *vls);
 void	create_stack_a(t_list **stack, int	*s_values, int c_args);
 void	create_stack_b(t_list **stack);
@@ -46,6 +49,6 @@ void	reverse_rotate_both_stack(t_list **a, t_list **b);
 void	op_three_vls(t_list **stack_a, int s_count);
 void	op_fv_vls(t_list **stack_a, t_list **stack_b);
 void	more_than_five(t_list **stack_a, t_list **stack_b, int s_count);
-void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count);
+void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind);
 void	destroy_stacks(t_list **stack_a, t_list **stack_b);
 #endif

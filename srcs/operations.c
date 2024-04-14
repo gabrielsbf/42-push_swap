@@ -69,7 +69,7 @@ void	more_than_five(t_list **stack_a, t_list **stack_b, int s_count)
 	iter = binary_limit(s_count);
 	while (iter > 0)
 	{
-		order_by_radix(stack_a, stack_b, begin, s_count);
+		order_by_radix(stack_a, stack_b, begin);
 		iter--;
 		begin++;
 	}
@@ -79,13 +79,11 @@ void	more_than_five(t_list **stack_a, t_list **stack_b, int s_count)
 	}
 }
 
-void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
+void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind)
 {
 	int	count_b;
 	int	count_a;
-	int first_a_i;
 
-	first_a_i = (*stack_a)->index;
 	count_b = elem_in_stack(stack_b);
 	while (count_b > 0 && (*stack_b)->next != NULL)
 	{

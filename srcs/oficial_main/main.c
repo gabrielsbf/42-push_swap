@@ -12,7 +12,7 @@
 
 #include "../../includes/push_swap.h"
 
-void	push_swap(t_list **st_a, t_list **st_b, int count, int* vls)
+void	push_swap(t_list **st_a, t_list **st_b, int count, int *vls)
 {
 	create_stack_a(st_a, vls, count);
 	create_stack_b(st_b);
@@ -38,8 +38,11 @@ int	main(int argc, char *argv[])
 	else
 	{
 		values = format_args(argv, &r_count);
-		if (has_repeated_v(values, r_count))
-			ft_printf("Error\n");
+		if (!allowed_cond(argv, argc, values, r_count))
+		{
+			ft_printf("THIS Error\n");
+			free(values);
+		}
 		else
 			push_swap(&stack_a, &stack_b, r_count, values);
 	}

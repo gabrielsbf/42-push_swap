@@ -30,6 +30,8 @@ char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 int		ft_atoi(const char *nptr);
 int		ft_atoi_free(char *nptr);
+void	value_conditions(char *nptr, int *iter, int *signal, int *v);
+int		verify_max_int(char *nptr, int result, int i);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);

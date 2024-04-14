@@ -53,7 +53,7 @@ int	*malloc_from_args(char *argv[], int *r_count)
 	{
 		while (i < ft_strlen(argv[nv]))
 		{
-			i = get_next_n(argv[nv], i);
+			i = next_n(argv[nv], i);
 			*r_count = *r_count + 1;
 		}
 		*r_count = *r_count - 1;
@@ -68,32 +68,32 @@ int	*malloc_from_args(char *argv[], int *r_count)
 
 int	*format_args(char *argv[], int *r_count)
 {
-	int	start_i;
+	int	s_i;
 	int	arg_number;
 	int	nv;
-	int	*stack_values;
+	int	*st_values;
 
 	arg_number = *r_count;
-	stack_values = malloc_from_args(argv, r_count);
+	st_values = malloc_from_args(argv, r_count);
 	nv = 1;
-	start_i = 0;
+	s_i = 0;
 	while (nv <= arg_number)
 	{
-		while (argv[nv][start_i] != '\0')
+		while (argv[nv][s_i] != '\0')
 		{
-			*stack_values = ft_atoi_free_ptr(ft_substr(argv[nv], start_i,
-						get_next_n(argv[nv], start_i)));
-			start_i = get_next_n(argv[nv], start_i);
-			stack_values++;
+			*st_values = ft_atoi_free(ft_substr(argv[nv], s_i,
+						next_n(argv[nv], s_i)));
+			s_i = next_n(argv[nv], s_i);
+			st_values++;
 		}
 		nv++;
-		start_i = 0;
+		s_i = 0;
 	}
-	stack_values = stack_values - *r_count;
-	return (stack_values);
+	
+	return (st_values - *r_count);
 }
 
-int	get_next_n(char *str, int i)
+int	next_n(char *str, int i)
 {
 	while (str[i] != '\0')
 	{
@@ -109,4 +109,25 @@ int	get_next_n(char *str, int i)
 		i++;
 	}
 	return (i);
+}
+
+int	has_repeated_v(int *values,int r_count)
+{
+	int	i_num;
+	int	i_gen;
+
+	i_num = 0;
+	i_gen = 0;
+	while (i_gen < r_count)
+	{
+		while(i_num < r_count)
+		{
+			i_num++;
+			if(values[i_gen] == values[i_num])
+				return (1);
+		}
+		i_gen++;
+		i_num = i_gen;
+	}
+	return (0);
 }

@@ -35,7 +35,7 @@ int	main(int argc, char *argv[])
 		op_fv_vls(&stack_a, &stack_b);
 	else
 		more_than_five(&stack_a, &stack_b, r_count);
-	destroy_stacks(&stack_a, &stack_b);
 	print_stack(&stack_a, "\nstack após ordenação\n---------\n");
+	destroy_stacks(&stack_a, &stack_b);
 	return (0);
 }

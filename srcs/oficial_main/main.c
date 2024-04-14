@@ -12,90 +12,17 @@
 
 #include "../../includes/push_swap.h"
 
-void	destroy_stacks(t_list **stack_a, t_list **stack_b)
+void	push_swap(t_list **st_a, t_list **st_b, int count, int* vls)
 {
-	t_list	*temp_stack_a;
-
-	while ((*stack_a)->next != NULL)
-	{
-		temp_stack_a = (*stack_a);
-		*stack_a = (*stack_a)->next;
-		free(temp_stack_a);
-	}
-	free((*stack_a));
-	free((*stack_b));
-}
-
-int	*malloc_from_args(char *argv[], int *r_count)
-{
-	size_t	i;
-	int		nv;
-	int		verificator;
-	int		*values;
-
-	verificator = *r_count;
-	i = 0;
-	nv = 1;
-	while (nv <= verificator)
-	{
-		while (i < ft_strlen(argv[nv]))
-		{
-			i = get_next_n(argv[nv], i);
-			*r_count = *r_count + 1;
-		}
-		*r_count = *r_count - 1;
-		nv++;
-		i = 0;
-	}
-	values = (int *)malloc((*r_count) * sizeof(int));
-	if (!values)
-		return (NULL);
-	return (values);
-}
-
-int	*format_args(char *argv[], int *r_count)
-{
-	int	start_i;
-	int	arg_number;
-	int	nv;
-	int	*stack_values;
-
-	arg_number = *r_count;
-	stack_values = malloc_from_args(argv, r_count);
-	nv = 1;
-	start_i = 0;
-	while (nv <= arg_number)
-	{
-		while (argv[nv][start_i] != '\0')
-		{
-			*stack_values = ft_atoi_free_ptr(ft_substr(argv[nv], start_i,
-						get_next_n(argv[nv], start_i)));
-			start_i = get_next_n(argv[nv], start_i);
-			stack_values++;
-		}
-		nv++;
-		start_i = 0;
-	}
-	stack_values = stack_values - *r_count;
-	return (stack_values);
-}
-
-int	get_next_n(char *str, int i)
-{
-	while (str[i] != '\0')
-	{
-		if (ft_strchr("+-0123456789", str[i]) == 0)
-		{
-			while (ft_has_space(str, i) && (str[i] != '\0'))
-				i++;
-			if (str[i] != '\0' && !(ft_has_space(str, i)))
-				return (i);
-		}
-		if (str[i] == '\0')
-			break ;
-		i++;
-	}
-	return (i);
+	create_stack_a(st_a, vls, count);
+	create_stack_b(st_b);
+	if (count <= 3)
+		op_three_vls(st_a, count);
+	else if (count > 3 && count <= 5)
+		op_fv_vls(st_a, st_b);
+	else
+		more_than_five(st_a, st_b, count);
+	destroy_stacks(st_a, st_b);
 }
 
 int	main(int argc, char *argv[])
@@ -107,19 +34,14 @@ int	main(int argc, char *argv[])
 
 	r_count = argc - 1;
 	if (argc == 1 || validate_args(argv, argc) == 0)
-	{
 		ft_printf("Error\n");
-		return (0);
-	}
-	values = format_args(argv, &r_count);
-	create_stack_a(&stack_a, values, r_count);
-	create_stack_b(&stack_b);
-	if (r_count <= 3)
-		op_three_vls(&stack_a, r_count);
-	else if (r_count > 3 && r_count <= 5)
-		op_fv_vls(&stack_a, &stack_b);
 	else
-		more_than_five(&stack_a, &stack_b, r_count);
-	destroy_stacks(&stack_a, &stack_b);
+	{
+		values = format_args(argv, &r_count);
+		if (has_repeated_v(values, r_count))
+			ft_printf("Error\n");
+		else
+			push_swap(&stack_a, &stack_b, r_count, values);
+	}
 	return (0);
 }

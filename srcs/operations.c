@@ -43,14 +43,15 @@ void	op_fv_vls(t_list **stack_a, t_list **stack_b)
 	{
 		while (elem_in_stack(stack_a) > 3 && ((*stack_a)->index == 1
 				|| (*stack_a)->index == 0))
-		{
 			push_stack(stack_a, stack_b, 'b');
-		}
 		if (elem_in_stack(stack_a) > 3)
 			reverse_rotate_stack(stack_a, 'a');
 	}
-	if ((*stack_b)->index == 0 && (*stack_b)->next->index == 1)
-		swap_stack(stack_b, 'b');
+	if ((*stack_b)->index == 0 && (*stack_b)->next)
+	{
+		if ((*stack_b)->next->index == 1)
+			swap_stack(stack_b, 'b');
+	}
 	op_three_vls(stack_a, elem_in_stack(stack_a));
 	while (elem_in_stack(stack_b) != 0 && (*stack_b)->index != -1)
 		push_stack(stack_b, stack_a, 'a');
@@ -82,7 +83,9 @@ void	order_by_radix(t_list **stack_a, t_list **stack_b, int ind, int count)
 {
 	int	count_b;
 	int	count_a;
+	int first_a_i;
 
+	first_a_i = (*stack_a)->index;
 	count_b = elem_in_stack(stack_b);
 	while (count_b > 0 && (*stack_b)->next != NULL)
 	{

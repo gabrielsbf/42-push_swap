@@ -12,7 +12,7 @@
 
 #include "../../includes/libft.h"
 
-int	ft_atoi_free_ptr(char *nptr)
+int	ft_atoi_free(char *nptr)
 {
 	int	minus;
 	int	i;

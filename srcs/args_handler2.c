@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/push_swap.h"
 
 int	next_n(char *str, int i)
@@ -55,14 +54,14 @@ int	has_rept_v(int *values, int r_count)
 
 int	respect_limits(char *argv[], int argc, int *values, int r_count)
 {
-	int s_i;
-	int nv;
-	char *str;
+	int		s_i;
+	int		nv;
+	char	*str;
 
 	nv = 0;
 	if (!has_zero(values, r_count))
 		return (1);
-	while(++nv < argc)
+	while (++nv < argc)
 	{
 		s_i = 0;
 		str = argv[nv];
@@ -72,9 +71,9 @@ int	respect_limits(char *argv[], int argc, int *values, int r_count)
 		{
 			if (str[s_i] == '0')
 			{
-				if (ft_strchr("-123456789",str[s_i - 1]) == 0
+				if (ft_strchr("-123456789", str[s_i - 1]) == 0
 					&& (ft_has_space(str, s_i + 1) || str[s_i + 1] == '\0'))
-						return (1);
+					return (1);
 			}
 		}
 	}
@@ -95,7 +94,7 @@ int	has_zero(int *values, int r_count)
 	return (0);
 }
 
-int allowed_cond(char *argv[], int argc, int *values, int r_count)
+int	allowed_cond(char *argv[], int argc, int *values, int r_count)
 {
 	if (has_rept_v(values, r_count))
 		return (0);

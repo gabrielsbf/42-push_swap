@@ -27,9 +27,9 @@ OBJS=$(SRCS:%.c=$(BUILD_DIR)/%.o)
 all: $(PUSH_SWAP)
 
 $(PUSH_SWAP) : $(OBJS)
-	cc $(OBJS) $(LIBFT) -o $(PUSH_SWAP)
+	$(CC) $(OBJS) $(LIBFT) -o $(PUSH_SWAP)
 
-$(BUILD_DIR)/%o : %c $(LIBFT)
+$(BUILD_DIR)/%.o : %.c $(LIBFT)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -37,15 +37,13 @@ $(LIBFT):
 	cd $(LIBFT_DIR) && make && cd ..
 
 clean:
-	rm -rf $(BUILD_DIR)/$(SRC_FOLDER)
-	cd $(LIBFT_DIR) && make clean && cd ..
+	rm -rf $(BUILD_DIR)
+	rm -rf $(LIBFT_DIR)/build/srcs
 
 fclean: clean
 	rm -f $(PUSH_SWAP)
-	cd $(LIBFT_DIR) && make fclean && cd ..
+	rm -f $(LIBFT)
 
-
-re : fclean $(PUSH_SWAP)
-	cd $(LIBFT_DIR) && make re && cd ..
+re : fclean $(LIBFT) $(PUSH_SWAP)
 
 .PHONY:  all clean fclean re

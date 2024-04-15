@@ -71,10 +71,8 @@ int	invalid_numb_at(char *str)
 	int	i;
 
 	i = 0;
-	ft_printf("entire string is: %s\n", str);
 	while (str[i] != '\0')
 	{
-		ft_printf("Reading char :%c, number %d\n", str[i], str[i]);
 		if (ft_strchr("123456789", str[i]) == 0 && !ft_has_space(str, i))
 			i++;
 		else
@@ -99,7 +97,8 @@ int	*format_args(char *argv[], int *r_count)
 	{
 		while (argv[nv][s_i] != '\0')
 		{
-			str_sub = ft_substr(argv[nv], s_i, next_n(argv[nv], s_i));
+			str_sub = ft_substr(argv[nv], s_i, next_n(argv[nv], s_i) - s_i);
+			ft_printf("PASSEI AQUI\nstr_sub é %s\n", str_sub);
 			*st_values = ft_atoi_free(str_sub);
 			s_i = next_n(argv[nv], s_i);
 			st_values++;

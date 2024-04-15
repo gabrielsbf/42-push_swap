@@ -14,13 +14,15 @@
 
 void	value_conditions(char *nptr, int *iter, int *signal, int *v)
 {
-	int	i;
-	int	minus;
+	int		i;
+	int		minus;
 
-	if (ft_strncmp("-2147483648", nptr, ft_strlen(nptr)) == 0)
-		*v = -2147483648;
 	i = 0;
 	minus = 0;
+	while (ft_has_space(nptr, i) && nptr[i] != '\0')
+		i++;
+	if (ft_strncmp("-2147483648", nptr + i, 11) == 0)
+		*v = -2147483648;
 	while (nptr[i] != '\0')
 	{
 		if (!ft_has_space(nptr, i))
@@ -34,6 +36,7 @@ void	value_conditions(char *nptr, int *iter, int *signal, int *v)
 	}
 	*signal = minus;
 	*iter = i;
+	ft_printf("v is : %d\n", *v);
 }
 
 int	verify_max_int(char *nptr, int result, int i)

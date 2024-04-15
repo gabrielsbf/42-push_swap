@@ -12,19 +12,33 @@
 
 #include "../includes/push_swap.h"
 
+// int	next_n(char *str, int i)
+// {
+// 	while (ft_has_space(str, i))
+// 		i++;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (ft_strchr("+-0123456789", str[i]) == 0)
+// 		{
+// 			while (ft_has_space(str, i) && (str[i] != '\0'))
+// 				i++;
+// 			if (str[i] != '\0' && !(ft_has_space(str, i)))
+// 				return (i);
+// 		}
+// 		if (str[i] == '\0')
+// 			break ;
+// 		i++;
+// 	}
+// 	return (i);
+// }
 int	next_n(char *str, int i)
 {
+	while (ft_has_space(str, i) == 1)
+		i++;
 	while (str[i] != '\0')
 	{
-		if (ft_strchr("+-0123456789", str[i]) == 0)
-		{
-			while (ft_has_space(str, i) && (str[i] != '\0'))
-				i++;
-			if (str[i] != '\0' && !(ft_has_space(str, i)))
-				return (i);
-		}
-		if (str[i] == '\0')
-			break ;
+		if (ft_has_space(str, i) == 1)
+			return (i);
 		i++;
 	}
 	return (i);
@@ -97,8 +111,12 @@ int	has_zero(int *values, int r_count)
 int	allowed_cond(char *argv[], int argc, int *values, int r_count)
 {
 	if (has_rept_v(values, r_count))
+	{
 		return (0);
+	}
 	if (!respect_limits(argv, argc, values, r_count))
+	{
 		return (0);
+	}
 	return (1);
 }

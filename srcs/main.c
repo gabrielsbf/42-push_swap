@@ -40,7 +40,7 @@ int	main(int argc, char *argv[])
 		values = format_args(argv, &r_count);
 		if (!allowed_cond(argv, argc, values, r_count))
 		{
-			ft_printf("THIS Error\n");
+			ft_printf("Error\n");
 			free(values);
 		}
 		else

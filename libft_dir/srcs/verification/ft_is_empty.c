@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visual_opt.h                                       :+:      :+:    :+:   */
+/*   ft_is_empty.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabrfern <gabrfern@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:36:48 by gabrfern          #+#    #+#             */
-/*   Updated: 2024/04/13 14:37:47 by gabrfern         ###   ########.fr       */
+/*   Created: 2024/04/14 21:42:00 by gabrfern          #+#    #+#             */
+/*   Updated: 2024/04/14 21:42:01 by gabrfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VISUAL_OPT_H
-# define VISUAL_OPT_H
+#include "../../includes/libft.h"
 
-# include "push_swap.h"
+int	ft_is_empty(char *str)
+{
+	int	i;
 
-void	print_stack(t_list **stack, char *text_before);
-#endif
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (!ft_has_space(str, i))
+			return (0);
+		i++;
+	}
+	return (1);
+}
